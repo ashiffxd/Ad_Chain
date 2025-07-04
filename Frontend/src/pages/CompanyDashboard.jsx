@@ -1,100 +1,3 @@
-// import React, { useState, useEffect } from 'react';
-// import { Box, Heading, Text, VStack, HStack, IconButton, useToast } from '@chakra-ui/react';
-// import { FaUserEdit } from 'react-icons/fa';
-// import { useNavigate } from 'react-router-dom';
-// import axios from 'axios';
-// import Navbar from '../components/Navbar.jsx';
-// import Footer from '../components/Footer.jsx';
-// import CreateAd from '../components/CreateAd.jsx';
-// import { useAuth } from '../contexts/AuthContext.jsx';
-
-// function CompanyDashboard() {
-//   const { user } = useAuth();
-//   const navigate = useNavigate();
-//   const toast = useToast();
-//   const [ads, setAds] = useState([]);
-//   const [notifications, setNotifications] = useState([]);
-
-//   const fetchAds = async () => {
-//     try {
-//       const token = localStorage.getItem('token');
-//       const res = await axios.get('http://localhost:5001/api/ads/my-ads', {
-//         headers: { Authorization: `Bearer ${token}` },
-//       });
-//       setAds(res.data);
-//     } catch (err) {
-//       console.error('Error fetching ads:', err);
-//     }
-//   };
-
-//   const fetchNotifications = async () => {
-//     try {
-//       const token = localStorage.getItem('token');
-//       const res = await axios.get('http://localhost:5001/api/users/notifications', {
-//         headers: { Authorization: `Bearer ${token}` },
-//       });
-//       setNotifications(res.data);
-//       res.data.forEach((notif) => {
-//         toast({
-//           title: 'Notification',
-//           description: notif.message,
-//           status: 'info',
-//           duration: 5000,
-//           isClosable: true,
-//         });
-//       });
-//     } catch (err) {
-//       console.error('Error fetching notifications:', err);
-//     }
-//   };
-
-//   useEffect(() => {
-//     fetchAds();
-//     fetchNotifications();
-//   }, []);
-
-//   return (
-//     <>
-//       <Navbar />
-//       <Box minH="calc(100vh - 160px)" p={6} bg="gray.50">
-//         <HStack justify="space-between" mb={6}>
-//           <Heading size="lg" color="brand.500">Company Dashboard</Heading>
-//           <IconButton
-//             icon={<FaUserEdit />}
-//             colorScheme="brand"
-//             onClick={() => navigate('/company/profile')}
-//             aria-label="Edit Profile"
-//           />
-//         </HStack>
-//         <VStack spacing={6} align="stretch">
-//           <Text fontSize="xl">Welcome, {user.name}!</Text>
-//           <CreateAd onAdCreated={fetchAds} />
-//           <Text fontSize="lg">Your Ads</Text>
-//           {ads.length === 0 ? (
-//             <Text>No ads created yet.</Text>
-//           ) : (
-//             ads.map((ad) => (
-//               <Box key={ad._id} p={4} bg="white" borderRadius="md" boxShadow="md">
-//                 <Text fontWeight="bold">{ad.title}</Text>
-//                 <Text>{ad.description}</Text>
-//                 <Text>Budget: ${ad.budget}</Text>
-//                 <Text>Category: {ad.category}</Text>
-//                 <Text>Status: {ad.status}</Text>
-//                 {ad.status === 'accepted' && ad.acceptedBy && (
-//                   <Text>Accepted by: {ad.acceptedBy.name}</Text>
-//                 )}
-//               </Box>
-//             ))
-//           )}
-//         </VStack>
-//       </Box>
-//       <Footer />
-//     </>
-//   );
-// }
-
-// export default CompanyDashboard;
-
 import React, { useState, useEffect } from 'react';
 import {
   Box,
@@ -126,6 +29,9 @@ import Footer from '../components/Footer.jsx';
 import CreateAd from '../components/CreateAd.jsx';
 import { useAuth } from '../contexts/AuthContext.jsx';
 
+// ✅ Set your backend base URL
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001/api';
+
 function CompanyDashboard() {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -138,7 +44,7 @@ function CompanyDashboard() {
   const fetchAds = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5001/api/ads/my-ads', {
+      const res = await axios.get(`${BACKEND_URL}/ads/my-ads`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setAds(res.data);
@@ -150,7 +56,7 @@ function CompanyDashboard() {
   const fetchNotifications = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5001/api/users/notifications', {
+      const res = await axios.get(`${BACKEND_URL}/users/notifications`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setNotifications(res.data);

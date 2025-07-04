@@ -1,20 +1,4 @@
-// import React from 'react';
-// import { Box } from '@chakra-ui/react';
 
-// const Footer = () => (
-//   <Box
-//     textAlign="center"
-//     p={4}
-//     bg="blue.100"
-//     color="gray.600"
-//     fontSize="sm"
-//     borderTop="1px solid #ccc"
-//   >
-//     © {new Date().getFullYear()} AdSense Platform. All rights reserved.
-//   </Box>
-// );
-
-// export default Footer;
 import React from 'react';
 import { 
   Box, 

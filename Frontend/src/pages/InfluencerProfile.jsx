@@ -27,6 +27,8 @@ import Footer from '../components/Footer.jsx';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import axios from 'axios';
 
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001/api';
+
 const categoriesList = ['Fashion', 'Fitness', 'Travel', 'Tech', 'Food'];
 const platformIcons = {
   Instagram: <FaInstagram />,
@@ -54,7 +56,7 @@ const sampleAds = [
 
 const InfluencerProfile = () => {
   const navigate = useNavigate();
-  const { user , logout } = useAuth();
+  const { user, logout } = useAuth();
 
   const [influencerProfile, setInfluencerProfile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -67,7 +69,7 @@ const InfluencerProfile = () => {
       if (!user) return;
 
       try {
-        const res = await axios.get('http://localhost:5001/api/users/profile', {
+        const res = await axios.get(`${BACKEND_URL}/users/profile`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -86,7 +88,7 @@ const InfluencerProfile = () => {
   const handleEditToggle = async () => {
     if (isEditing) {
       try {
-        const res = await axios.put('http://localhost:5001/api/users/profile', editedProfile, {
+        const res = await axios.put(`${BACKEND_URL}/users/profile`, editedProfile, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -143,6 +145,11 @@ const InfluencerProfile = () => {
     navigate('/influencer/dashboard');
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   if (!influencerProfile) {
     return (
       <Box minH="100vh" display="flex" alignItems="center" justifyContent="center">
@@ -150,12 +157,6 @@ const InfluencerProfile = () => {
       </Box>
     );
   }
-
-  const handleLogout = () => {
-  logout();
-  navigate('/login');
-};
-
 
   return (
     <>
@@ -328,7 +329,6 @@ const InfluencerProfile = () => {
           </VStack>
         </Box>
 
-        {/* New Ad Section */}
         <Box mt={6} p={4} bg="white" borderRadius="md" boxShadow="lg">
           <Heading size="md" mb={4} color="brand.600">
             Sponsored Opportunities
@@ -376,16 +376,14 @@ const InfluencerProfile = () => {
           </SimpleGrid>
         </Box>
 
-                    <HStack mt={6} spacing={4} justify="center">
-            <Button colorScheme="brand" onClick={handleBackToDashboard}>
-              Back to Dashboard
-            </Button>
-            <Button colorScheme="red" onClick={handleLogout}>
-              Logout
-            </Button>
-          </HStack>
-
-
+        <HStack mt={6} spacing={4} justify="center">
+          <Button colorScheme="brand" onClick={handleBackToDashboard}>
+            Back to Dashboard
+          </Button>
+          <Button colorScheme="red" onClick={handleLogout}>
+            Logout
+          </Button>
+        </HStack>
       </Box>
       <Footer />
     </>
@@ -393,5 +391,3 @@ const InfluencerProfile = () => {
 };
 
 export default InfluencerProfile;
-
-

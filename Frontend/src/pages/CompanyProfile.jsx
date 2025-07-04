@@ -22,6 +22,8 @@ import Footer from '../components/Footer.jsx';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import axios from 'axios';
 
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001/api';
+
 const companyIndustries = [
   'Technology', 'Fashion', 'Beauty', 'Fitness', 'Travel',
   'Food & Beverage', 'Gaming', 'Lifestyle', 'Healthcare', 'Finance'
@@ -31,7 +33,7 @@ const companySizes = ['Small (1-50 employees)', 'Medium (51-200 employees)', 'La
 
 const CompanyProfile = () => {
   const navigate = useNavigate();
-  const { user , logout } = useAuth();
+  const { user, logout } = useAuth();
 
   const [companyProfile, setCompanyProfile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -43,7 +45,7 @@ const CompanyProfile = () => {
       if (!user) return;
 
       try {
-        const res = await axios.get('http://localhost:5001/api/users/profile', {
+        const res = await axios.get(`${BACKEND_URL}/users/profile`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -62,7 +64,7 @@ const CompanyProfile = () => {
   const handleEditToggle = async () => {
     if (isEditing) {
       try {
-        const res = await axios.put('http://localhost:5001/api/users/profile', editedProfile, {
+        const res = await axios.put(`${BACKEND_URL}/users/profile`, editedProfile, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -85,6 +87,11 @@ const CompanyProfile = () => {
     navigate('/company/dashboard');
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   if (!companyProfile) {
     return (
       <Box minH="100vh" display="flex" alignItems="center" justifyContent="center">
@@ -92,11 +99,6 @@ const CompanyProfile = () => {
       </Box>
     );
   }
-  const handleLogout = () => {
-  logout();
-  navigate('/login');
-};
-
 
   return (
     <>
@@ -220,15 +222,14 @@ const CompanyProfile = () => {
             </FormControl>
           </VStack>
         </Box>
-         <Flex mt={6} justify="center" gap={4}>
-        <Button colorScheme="brand" onClick={handleBackToDashboard}>
-          Back to Dashboard
-        </Button>
-        <Button colorScheme="red" onClick={handleLogout}>
-          Logout
-        </Button>
-      </Flex>
-
+        <Flex mt={6} justify="center" gap={4}>
+          <Button colorScheme="brand" onClick={handleBackToDashboard}>
+            Back to Dashboard
+          </Button>
+          <Button colorScheme="red" onClick={handleLogout}>
+            Logout
+          </Button>
+        </Flex>
       </Box>
       <Footer />
     </>

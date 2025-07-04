@@ -13,6 +13,10 @@ function CreateAd({ onAdCreated }) {
 
   const categories = ['Fashion', 'Fitness', 'Travel', 'Tech', 'Food'];
 
+  // Base URL from .env
+ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5001/api";
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setAdData((prev) => ({ ...prev, [name]: value }));
@@ -22,7 +26,7 @@ function CreateAd({ onAdCreated }) {
     try {
       setError('');
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5001/api/ads', adData, {
+      await axios.post(`${BACKEND_URL}/ads`, adData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       onAdCreated();
