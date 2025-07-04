@@ -21,30 +21,31 @@ if (!process.env.JWT_SECRET) {
   process.exit(1);
 }
 
-// Allowed origins for CORS
+// ✅ Allowed origins for CORS (NO trailing slashes!)
 const allowedOrigins = [
-  'http://localhost:5173',            // Local dev frontend
-  'https://ad-chain-coral.vercel.app' // Deployed frontend URL
+  'http://localhost:5173',
+  'https://ad-chain-coral.vercel.app'
 ];
 
-// Middleware
+// ✅ CORS Middleware
 app.use(cors({
   origin: function(origin, callback) {
-    // Allow requests with no origin like mobile apps or curl requests
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
+    if (!origin) return callback(null, true);  // allow mobile apps / curl / server-to-server
+    const normalizedOrigin = origin.replace(/\/$/, '');
+    if (allowedOrigins.includes(normalizedOrigin)) {
       callback(null, true);
     } else {
+      console.error(`Blocked by CORS: ${origin}`);
       callback(new Error('Not allowed by CORS'));
     }
   },
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true, // if you use cookies/auth, else can omit
+  credentials: true
 }));
 
 app.use(express.json());
 
-// Connect to MongoDB with retry logic
+// ✅ MongoDB with retry logic
 const connectWithRetry = async (retries = 5, delay = 5000) => {
   for (let i = 0; i < retries; i++) {
     try {
@@ -52,33 +53,38 @@ const connectWithRetry = async (retries = 5, delay = 5000) => {
         serverSelectionTimeoutMS: 5000,
         maxPoolSize: 10,
       });
-      console.log('MongoDB connected');
+      console.log('✅ MongoDB connected');
       return;
     } catch (err) {
-      console.error(`MongoDB connection attempt ${i + 1} failed:`, err.message);
+      console.error(`❌ MongoDB connection attempt ${i + 1} failed:`, err.message);
       if (i === retries - 1) {
-        console.error('MongoDB connection failed after all retries. Exiting...');
+        console.error('❌ MongoDB connection failed after all retries. Exiting...');
         process.exit(1);
       }
-      console.log(`Retrying in ${delay / 1000} seconds...`);
+      console.log(`⏳ Retrying in ${delay / 1000} seconds...`);
       await new Promise((resolve) => setTimeout(resolve, delay));
     }
   }
 };
 
-// Initiate MongoDB connection
+// ✅ Initiate MongoDB connection
 connectWithRetry();
 
-// Mount Routes
+// ✅ Mount Routes
 app.use('/api/users', authRoutes);
 app.use('/api/ads', adRoutes);
 
-// Error handling middleware
+// ✅ Base Route (optional but nice!)
+app.get('/', (req, res) => {
+  res.send('AdChain backend server is running ✅');
+});
+
+// ✅ Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: 'Something went wrong!', error: err.message });
 });
 
-// Start the server
+// ✅ Start the server
 const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
