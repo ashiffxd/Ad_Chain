@@ -26,11 +26,11 @@ Database: MongoDB
 Live Demo
 Live Site: https://adchain-omega.vercel.app/
 
-GitHub: https://github.com/Avir0/Adchain
+GitHub: https://github.com/ashiffxd/Ad_Chain
 
 
 # Clone
-git clone https://github.com/Avir0/Adchain.git
+git clone https://github.com/ashiffxd/Ad_Chain
 
 # Install frontend
 cd frontend

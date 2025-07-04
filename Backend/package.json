@@ -1,7 +1,7 @@
 {
-  "name": "adsense-backend",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "Backend for Adsense application",
+  "description": "Backend for AdChain application",
   "main": "server.js",
   "type": "module",
   "scripts": {
