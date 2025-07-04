@@ -23,7 +23,6 @@ if (!process.env.JWT_SECRET) {
 
 // ✅ Allowed origins for CORS (NO trailing slashes!)
 const allowedOrigins = [
-  'http://localhost:5173',
   'https://ad-chain-coral.vercel.app'
 ];
 
