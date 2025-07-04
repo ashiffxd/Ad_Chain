@@ -23,10 +23,6 @@ Backend: Node.js, Express.js
 
 Database: MongoDB
 
-Live Demo
-Live Site: https://adchain-omega.vercel.app/
-
-GitHub: https://github.com/ashiffxd/Ad_Chain
 
 
 # Clone
