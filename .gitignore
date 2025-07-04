@@ -1,16 +1,12 @@
 # Node dependencies
-fe/node_modules/
-be/node_modules/
+**/node_modules/
 
 # Environment files
-fe/.env
-be/.env
+**/.env
 
 # Build outputs
-fe/build/
-fe/dist/
-be/build/
-be/dist/
+**/build/
+**/dist/
 
 # Logs
 *.log
