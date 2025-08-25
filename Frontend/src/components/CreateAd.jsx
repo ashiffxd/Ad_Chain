@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Box, FormControl, FormLabel, Input, Textarea, Select, Button, VStack, Text } from '@chakra-ui/react';
 import axios from 'axios';
+import {BACKEND_URL} from '../../config';  // ✅ NEW IMPORT
 
 function CreateAd({ onAdCreated }) {
   const [adData, setAdData] = useState({
@@ -12,10 +13,6 @@ function CreateAd({ onAdCreated }) {
   const [error, setError] = useState('');
 
   const categories = ['Fashion', 'Fitness', 'Travel', 'Tech', 'Food'];
-
-  // Base URL from .env
- const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5001/api";
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;

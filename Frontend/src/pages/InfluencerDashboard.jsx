@@ -26,8 +26,8 @@ import axios from 'axios';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import { useAuth } from '../contexts/AuthContext.jsx';
+import {BACKEND_URL} from '../../config'; // ✅ Use shared config
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001/api';
 
 function InfluencerDashboard() {
   const { user } = useAuth();

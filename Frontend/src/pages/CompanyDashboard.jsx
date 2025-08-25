@@ -28,9 +28,7 @@ import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import CreateAd from '../components/CreateAd.jsx';
 import { useAuth } from '../contexts/AuthContext.jsx';
-
-// ✅ Set your backend base URL
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001/api';
+import {BACKEND_URL} from '../../config';  // ✅ NEW IMPORT
 
 function CompanyDashboard() {
   const { user } = useAuth();

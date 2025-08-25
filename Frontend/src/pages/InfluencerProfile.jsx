@@ -26,8 +26,7 @@ import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import axios from 'axios';
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001/api';
+import {BACKEND_URL} from '../../config'; // ✅ Use shared config
 
 const categoriesList = ['Fashion', 'Fitness', 'Travel', 'Tech', 'Food'];
 const platformIcons = {
@@ -329,65 +328,56 @@ const InfluencerProfile = () => {
           </VStack>
         </Box>
 
-        <Box mt={6} p={4} bg="white" borderRadius="md" boxShadow="lg">
-          <Heading size="md" mb={4} color="brand.600">
-            Sponsored Opportunities
-          </Heading>
-          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-            {sampleAds.map((ad) => (
-              <Box
-                key={ad.id}
-                p={4}
-                bg="gray.50"
-                borderRadius="lg"
-                boxShadow="md"
-                transition="all 0.3s ease"
-                _hover={{
-                  transform: 'translateY(-5px)',
-                  boxShadow: 'xl',
-                  bg: 'gray.100',
-                }}
-              >
-                <Image
-                  src={ad.image}
-                  alt={ad.title}
-                  borderRadius="md"
-                  objectFit="cover"
-                  h="150px"
-                  w="100%"
-                  mb={3}
-                />
-                <Heading size="sm" mb={2} color="brand.500">
-                  {ad.title}
-                </Heading>
-                <Text fontSize="sm" color="gray.600" mb={3}>
-                  {ad.description}
-                </Text>
-                <Button
-                  size="sm"
-                  colorScheme="brand"
-                  variant="outline"
-                  _hover={{ bg: 'brand.500', color: 'white' }}
-                >
-                  {ad.cta}
-                </Button>
-              </Box>
-            ))}
-          </SimpleGrid>
-        </Box>
-
-        <HStack mt={6} spacing={4} justify="center">
-          <Button colorScheme="brand" onClick={handleBackToDashboard}>
-            Back to Dashboard
-          </Button>
-          <Button colorScheme="red" onClick={handleLogout}>
-            Logout
-          </Button>
-        </HStack>
+<Box mt={6} p={4} bg="white" borderRadius="md" boxShadow="lg">
+  <Heading size="md" mb={4} color="brand.600">
+    Sponsored Opportunities
+  </Heading>
+  <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+    {sampleAds.map((ad) => (
+      <Box
+        key={ad.id}
+        p={4}
+        bg="gray.50"
+        borderRadius="lg"
+        boxShadow="md"
+        transition="all 0.3s ease"
+        _hover={{
+          transform: 'translateY(-5px)',
+          boxShadow: 'xl',
+          bg: 'gray.100',
+        }}
+      >
+        <Heading size="sm" mb={2} color="brand.500">
+          {ad.title}
+        </Heading>
+        <Text fontSize="sm" color="gray.600" mb={3}>
+          {ad.description}
+        </Text>
+        <Button
+          size="sm"
+          colorScheme="brand"
+          variant="outline"
+          _hover={{ bg: 'brand.500', color: 'white' }}
+        >
+          {ad.cta}
+        </Button>
       </Box>
-      <Footer />
-    </>
-  );
+    ))}
+  </SimpleGrid>
+</Box>
+
+<HStack mt={6} spacing={4} justify="center">
+  <Button colorScheme="brand" onClick={handleBackToDashboard}>
+    Back to Dashboard
+  </Button>
+  <Button colorScheme="red" onClick={handleLogout}>
+    Logout
+  </Button>
+</HStack>
+</Box>
+<Footer />
+</>
+);
 };
 
 export default InfluencerProfile;

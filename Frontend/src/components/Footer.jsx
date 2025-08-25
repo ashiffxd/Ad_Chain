@@ -100,7 +100,7 @@ const Footer = () => (
 
         {/* Copyright */}
         <Text fontSize="sm">
-          © {new Date().getFullYear()} 🔺SENSE. All rights reserved.
+          © {new Date().getFullYear()}. All rights reserved.
         </Text>
       </VStack>
     </Container>

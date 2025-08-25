@@ -21,8 +21,7 @@ import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import axios from 'axios';
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001/api';
+import {BACKEND_URL} from '../../config'; // ✅ imported config
 
 const companyIndustries = [
   'Technology', 'Fashion', 'Beauty', 'Fitness', 'Travel',
