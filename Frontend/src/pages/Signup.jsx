@@ -242,7 +242,7 @@ const companyIndustries = [
                 </FormControl>
 
                 <FormControl>
-                  <FormLabel>Categories (Your choice of ad types)</FormLabel>
+                  <FormLabel>Categories (Your choice of ad types) Max 3</FormLabel>
                   <Wrap>
                     {categoriesList.map((cat) => (
                       <WrapItem key={cat}>
