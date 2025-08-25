@@ -17,7 +17,7 @@ app.use(express.json());
 // CORS setup
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://ad-chain-coral.vercel.app/', 
+  'https://ad-chain-coral.vercel.app', 
 ];
 
 app.use(
